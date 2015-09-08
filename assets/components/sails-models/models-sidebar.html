@@ -18,9 +18,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../../bower_components/paper-menu/paper-menu.html">
 <link rel="import" href="../../bower_components/iron-pages/iron-pages.html">
 <script src="../../bower_components/page.js/page.js"></script>
-<link rel="import" href="../sails-models/models-app.html">
 
-<dom-module id="sails-admin">
+<dom-module id="models-sidebar">
 
 
   <style>
@@ -31,7 +30,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     * {
       margin: 0;
-      @apply(--paper-font-common-base);
+    @apply(--paper-font-common-base);
     }
 
     /**
@@ -92,9 +91,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             <span>Users</span>
           </a>
 
-          <a data-route="models" href="/models" on-click="onDataRouteClick">
-            <iron-icon icon="models:default"></iron-icon>
-            <span>Models</span>
+          <a data-route="contact" href="/contact" on-click="onDataRouteClick">
+            <iron-icon icon="mail"></iron-icon>
+            <span>Contact</span>
           </a>
         </paper-menu>
       </paper-header-panel>
@@ -104,63 +103,57 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           <div>Title</div>
         </paper-toolbar>
         <iron-pages attr-for-selected="data-route" selected="[[route]]">
-          <section data-route="home">
-            <home-app></home-app>
-          </section>
-          <section data-route="users">
-            <users-app></users-app>
-          </section>
-          <section data-route="models">
-            <models-app></models-app>
-          </section>
+          <section data-route="home">home</section>
+          <section data-route="users">users</section>
+          <section data-route="contact">contact</section>
         </iron-pages>
       </paper-header-panel>
     </paper-drawer-panel>
   </template>
   <script>
-(function() {
-    Polymer({
-      is: 'sails-admin',
+    (function() {
+      Polymer({
+        is: 'models-sidebar',
 
-      properties: {
-      },
+        properties: {
+        },
 
-      ready: function(){
-        var app = this;
-        page('/', function () {
-          app.route = 'home';
-          app.scrollPageToTop();
-        });
-        page('/users', function () {
-          app.route = 'users';
-          app.scrollPageToTop();
-        });
-        page('/users/:name', function (data) {
-          app.route = 'user-info';
-          app.params = data.params;
-          app.scrollPageToTop();
-        });
-        page('/models', function () {
-          app.route = 'models';
-          app.scrollPageToTop();
-        });
-        // add #! before urls
-        page({
-          hashbang: true
-        });
-      },
+        ready: function(){
+          var app = this;
+          page('/', function () {
+            app.route = 'home';
+            app.scrollPageToTop();
+          });
+          page('/users', function () {
+            app.route = 'users';
+            app.scrollPageToTop();
+          });
+          page('/users/:name', function (data) {
+            app.route = 'user-info';
+            app.params = data.params;
+            app.scrollPageToTop();
+          });
+          page('/contact', function () {
+            app.route = 'contact';
+            app.scrollPageToTop();
+          });
+          // add #! before urls
+          page({
+            hashbang: true
+          });
+        },
 
-      onDataRouteClick: function(){
-//        var drawerPanel = document.querySelector('paperDrawerPanel');
-//        if (drawerPanel.narrow) {
-//          drawerPanel.closeDrawer();
-//        }
-      },
+        onDataRouteClick: function(){
+          var drawerPanel = document.querySelector('#paperDrawerPanel');
+          if (drawerPanel.narrow) {
+            drawerPanel.closeDrawer();
+          }
+        },
 
-      scrollPageToTop: function() {
-        document.getElementById('mainContainer').scrollTop = 0;
-      }
-    });
-  })();
+        scrollPageToTop: function() {
+          document.getElementById('mainContainer').scrollTop = 0;
+        }
+      });
+    })();
   </script>
 </dom-module>
